@@ -1,3 +1,24 @@
+html {
+  font-size: 1rem;
+}
+
+@include media-breakpoint-up(sm) {
+  html {
+    font-size: 1.2rem;
+  }
+}
+
+@include media-breakpoint-up(md) {
+  html {
+    font-size: 1.4rem;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  html {
+    font-size: 1.6rem;
+  }
+}
 .footer {
   position: fixed;
   left: 0;
@@ -6,11 +27,11 @@
   height: 30px;
   text-align: center;
   padding-top: 5px;
-  background-color: #343a40;
+  background-color: #e3f2fd;
 }
 
 .upper-margin {
-  margin-top: 50px;
+  margin-top: 60px;
 }
 
 a {

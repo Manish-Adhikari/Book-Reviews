@@ -9,12 +9,12 @@
         <div class="logo">Register</div>
         <!-- Main Form -->
         <div class="login-form-1">
-            <form id="register-form" class="text-left">
+            <form id="register-form" class="text-left" action="{{ url_for('signup') }}" method="POST">
                 <div class="login-form-main-message"></div>
                 <div class="main-login-form">
                     <div class="login-group">
                         <div class="form-group">
-                            <label for="reg_username" class="sr-only">Email address</label>
+                            <label for="reg_username" class="sr-only">username</label>
                             <input type="text" class="form-control" id="reg_username" name="reg_username" placeholder="username">
                         </div>
                         <div class="form-group">
@@ -45,6 +45,9 @@
             </form>
         </div>
         <!-- end:Main Form -->
+        {% if username %}
+            <p><strong>Usename Already Exists.</strong></p>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
