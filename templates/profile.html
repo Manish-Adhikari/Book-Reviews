@@ -6,7 +6,28 @@ Book Profile
 
 {% block content %}
 <div class="container upper-margin">
-    <h1>Book Lists</h1>
+    <div class="row row justify-content-between" style="padding-top:20px;">
+        <div class="col-2">
+            <a href="#" class="btn btn-lg btn-primary active">
+                <span class="glyphicon glyphicon-user"></span> @{{ user.username }}
+            </a>
+        </div>
+        <div class="col-4">
+            <form action="{{ url_for('profile') }}" method="POST">
+                <div class="row no-gutters align-items-center">
+                    <div class="col">
+                        <input class="form-control form-control-md form-control-borderless" type="search" name="text" placeholder="Search topics or keywords">
+                    </div>
+                    <!--end of col-->
+                    <div class="col-auto">
+                        <button class="btn btn-md btn-success" type="submit">Search</button>
+                    </div>
+                    <!--end of col-->
+                </div>
+            </form>
+        </div>
+    </div>
+    <h1 style="padding-top:20px">Book Lists</h1>
     <table class="table table-hover">
         <thead>
             <tr>
@@ -17,12 +38,12 @@ Book Profile
             </tr>
         </thead>
         <tbody>
-                {% for book in books %}
+            {% for book in books %}
             <tr>
-                <td>{{  book.isbn }}</td>
-                <td>{{  book.title }}</td>
-                <td>{{  book.author }}</td>
-                <td>{{  book.year }}</td>
+                <td>{{ book.isbn }}</td>
+                <td><a href = "{{ url_for('book',book_title=book.title) }}" style="color:hotpink;"><b>{{ book.title }}</b></a></td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.year }}</td> 
             </tr>
             {% endfor %}
         </tbody>

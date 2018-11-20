@@ -2,23 +2,16 @@ html {
   font-size: 1rem;
 }
 
-@include media-breakpoint-up(sm) {
-  html {
-    font-size: 1.2rem;
-  }
+.form-control-borderless {
+  border: none;
 }
 
-@include media-breakpoint-up(md) {
-  html {
-    font-size: 1.4rem;
-  }
+.form-control-borderless:hover, .form-control-borderless:active, .form-control-borderless:focus {
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
-@include media-breakpoint-up(lg) {
-  html {
-    font-size: 1.6rem;
-  }
-}
 .footer {
   position: fixed;
   left: 0;
@@ -333,3 +326,42 @@ label:hover:before {
   color: #aaaaaa;
   font-weight: bold;
 }
+
+.rating {
+  unicode-bidi:bidi-override;
+  direction:ltr;
+  font-size:30px;
+}
+.rating span.star {
+  font-family:FontAwesome;
+  font-weight:normal;
+  font-style:normal;
+  display:inline-block;
+}
+.rating span.star:hover {
+  cursor:pointer;
+}
+.rating span.star:before {
+  content:"\f006";
+  padding-right:5px;
+  color:#999999;
+}
+
+
+
+
+span.star.filled:before{ color:#e3cf7a; content:"\f005";}
+
+span.star.half-filled:before{
+ 
+content: "\f089";
+color:#e3cf7a;
+
+}
+span.star.half-filled:after{
+ 
+content: "\f006";
+color:#e3cf7a;
+margin-left:-20px;
+}
+

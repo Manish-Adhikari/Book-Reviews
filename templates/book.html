@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block title %}
+Review-{{ book.title }}
+{% endblock %}
+
+{% block content %}
+<div class="container upper-margin">
+    <div class="row" style="padding-top:30px;">
+        <div class="col-6">
+            <h4><strong>Book Title: </strong>{{ book.title }}</h4>
+            <h5><strong>Author: </strong>{{ book.author }}</h5>
+            <h6><strong>ISBN: </strong>{{ book.isbn }}</h6>
+            <h6><strong>Year Published: </strong>{{ book.year }}</h6>
+            <br><br>
+            <h4>Star Rating</h4>
+            <span class="rating" rating="{{ ratings }}">
+                <span class="star "></span>
+                <span class="star "></span>
+                <span class="star"></span>
+                <span class="star"></span>
+                <span class="star"></span>
+            </span>
+        </div>
+        <div class="col-1">
+            <img src="{{ img_url }}">
+        </div>
+        <div class="col-5 justify-content-left">
+            <h5 style="margin-left:42px;"><strong>Description</strong></h5>
+            <p style="margin-left:42px;">{{ description }}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
