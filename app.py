@@ -15,8 +15,8 @@ app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
 @app.route('/')
-def index():
-    return render_template("layout.html")
+def home():
+    return render_template("home.html")
 
 @app.route('/login',methods=["POST","GET"])
 def login():
