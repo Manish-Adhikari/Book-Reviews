@@ -1,4 +1,3 @@
-from werkzeug.security import generate_password_hash, check_password_hash
 from flask import Flask, render_template, request, redirect,url_for,session, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
