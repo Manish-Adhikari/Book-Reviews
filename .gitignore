@@ -11,6 +11,7 @@ eggs/
 .eggs/
 lib64/
 parts/
+flask_session/
 sdist/
 var/
 *.egg-info/
