@@ -7,28 +7,75 @@ Review-{{ book.title }}
 {% block content %}
 <div class="container upper-margin">
     <div class="row" style="padding-top:30px;">
-        <div class="col-6">
+        <div class="col-5">
             <h4><strong>Book Title: </strong>{{ book.title }}</h4>
             <h5><strong>Author: </strong>{{ book.author }}</h5>
             <h6><strong>ISBN: </strong>{{ book.isbn }}</h6>
             <h6><strong>Year Published: </strong>{{ book.year }}</h6>
             <br><br>
             <h4>Star Rating</h4>
-            <span class="rating" rating="{{ ratings }}">
-                <span class="star "></span>
-                <span class="star "></span>
+            <span class="rating" rating="{{ gratings }}">
+                <span class="star"></span>
+                <span class="star"></span>
                 <span class="star"></span>
                 <span class="star"></span>
                 <span class="star"></span>
             </span>
         </div>
-        <div class="col-1">
-            <img src="{{ img_url }}">
+        <div class="col-2">
+            <div>
+                <img src="{{ img_url }}">
+            </div>
         </div>
-        <div class="col-5 justify-content-left">
-            <h5 style="margin-left:42px;"><strong>Description</strong></h5>
-            <p style="margin-left:42px;">{{ description }}</p>
+        <div class="col-md-5">
+            <h5><strong>Description</strong></h5>
+            <p>{{ description }}</p>
         </div>
+        <div class="row" id="comment-cnt">
+        <section class="row mt-4 justify-content-center" style="width:80%;" id="comment-cnt"></section>
+            <article>
+                <form action="{{ url_for('submit_comment', book_title= book.title) }}" method="POST" class="d-flex justify-content-end flex-wrap" id="comment-form">
+                    <textarea name="commtxt" id="commtxt" placeholder="Review" class="form-control"></textarea>
+                    <div class="form-row w-100">
+                        <div class="col">
+                            <label for="starsrate" class="text-muted text-right" style="margin-right:5px;">Stars</label>
+                        </div>
+                        <div class="col-6 mr-2">
+                            <select class="custom-select" id="starsrate" name="starsrate">
+                                <option selected value="-1">Vote...</option>
+                                <option value="1">&#9733;</option>
+                                <option value="2">&#9733;&#9733;</option>
+                                <option value="3">&#9733;&#9733;&#9733;</option>
+                                <option value="4">&#9733;&#9733;&#9733;&#9733;</option>
+                                <option value="5">&#9733;&#9733;&#9733;&#9733;&#9733;</option>
+                            </select>
+                        </div>
+                        <div class="col mr-2">
+                            <button class="btn btn-md btn-primary " type="submit">Comment</button>
+                        </div>
+                    </div>
+                </form>
+            </article>
+        </section>
+        </div>
+        <section style="padding-top:30px; width:100%;">
+            <h3>User's reviews</h3>
+                {%for rev in reviews%}
+                <article class="comment">
+                    <div class="media-body">
+                        <p class="name"><i class="icon-user"></i>{{ rev.username }}<span id="rating" class="text-muted">
+                                Rating:
+                                {%for i in range(rev.ratings)%}
+                                &#9733;
+                                {%endfor%}
+                            </span></p>
+                        <p class="text-review">{{rev.comment}}</p>
+                </article>      
+            </div>
+            {% else %}
+            <h5 style="padding-left:30px; color:grey;">No Reviews.</h5>
+            {% endfor %}
+        </section>
     </div>
 </div>
 

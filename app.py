@@ -1,5 +1,5 @@
 from werkzeug.security import generate_password_hash, check_password_hash
-from flask import Flask, render_template, request, redirect,url_for,session
+from flask import Flask, render_template, request, redirect,url_for,session, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from flask_session import Session
@@ -72,7 +72,7 @@ def logout():
 def book(book_title):
     if 'user_id' in session:
         book = db.execute("SELECT * FROM books WHERE title=:title",{"title":book_title}).fetchone()
-        user = db.execute("SELECT username FROM users WHERE id=:id",{'id':session['user_id']})
+        user = db.execute("SELECT username FROM users WHERE id=:id",{'id':session['user_id']}).fetchone()
         ratings = requests.get('https://www.goodreads.com/book/review_counts.json',params={'key':'O9dohPYJvkRNH7y4C6YLg','isbns':book.isbn})
         url = "https://www.googleapis.com/books/v1/volumes?q=isbn:"
         new_url = url + str(book.isbn)
@@ -81,9 +81,31 @@ def book(book_title):
         img_url = s["items"][0]["volumeInfo"]["imageLinks"]["thumbnail"]
         description = s["items"][0]["volumeInfo"]["description"]
         rate = (ratings.json()["books"][0]["average_rating"])
-        return render_template("book.html",user=user,book=book,ratings=rate,description= description, img_url=img_url)
+        reviews = db.execute("SELECT comment, ratings, username FROM reviews JOIN users ON users.id=user_id WHERE book_title=:book_title LIMIT(4)",{"book_title":book_title})
+        return render_template("book.html",user=user,book=book,gratings=rate,description= description, img_url=img_url,reviews=reviews)
     return "<h2> LOoop</h2>";
 
+@app.route('/submit_comment/<string:book_title>', methods=["POST"])
+def submit_comment(book_title):
+    if 'user_id' in session:
+        comm=request.form.get("commtxt")
+        rate=request.form.get("starsrate")
+        db.execute("INSERT INTO reviews(user_id,comment,book_title,ratings) VALUES (:user_id, :comment, :book_title, :ratings)",
+        {"user_id": session['user_id'], "comment": comm, "book_title":book_title, "ratings": rate})
+        db.commit()
+        return redirect(url_for("book", book_title=book_title))
+
+@app.route('/api/books/<int:book_id>')
+def book_api(book_id):
+    book = db.execute("SELECT * FROM books WHERE id=:id", {"id":book_id}).fetchone()
+    if book is None:
+        return jsonify({"Error 404": "This book does not exists"})
+    return jsonify({
+        "ISBNS": book.isbn,
+        "Title": book.title,
+        "Author": book.author,
+        "Publication Year": book.year,
+    })
 
 if __name__ == '__main__':
     app.run()

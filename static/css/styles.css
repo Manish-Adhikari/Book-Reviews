@@ -365,3 +365,27 @@ color:#e3cf7a;
 margin-left:-20px;
 }
 
+#comment-form textarea{
+  width: 100%;
+  min-height: 75px;
+  height: 125px;
+  margin-bottom: 20px; 
+}
+.comment{
+  margin-top: 10px;
+  border-top: 1px solid #bfbfbf;
+}
+.comment .media-body{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.comment .media-body .name{
+  font-size:20px;
+  font-weight: 700;
+}
+.comment .media-body .name #rating{
+  font-size:14px;
+  font-weight: 400;
+  margin-left: 25px;
+  padding-left: 15px;
+}
